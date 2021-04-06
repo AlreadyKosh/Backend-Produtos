@@ -8,8 +8,6 @@ exports.Insert = (req, res, next) => {
     const preco = req.body.preco;
     const quantidade = req.body.quantidade;
     const descricao = req.body.descricao;
-
-
     const ativo = req.body.ativo;
  
     // Popula cada um dos campos do model com os campos recebido na request
@@ -32,3 +30,26 @@ exports.Insert = (req, res, next) => {
         .catch(error => next(error));
 };
  
+exports.SelectAll = (req, res, next) => {
+    Produtos.findAll()
+        .then(produtos => {
+            if (produtos) {
+                res.status(status.OK).send(produtos);
+            }
+        })
+        .catch(error => next(error));
+}
+ 
+exports.SelectDetail = (req, res, next) => {
+    const id = req.params.id;
+ 
+    Produtos.findByPk(id)
+        .then(produtos => {
+            if (produtos) {
+                res.status(status.OK).send(produtos);
+            } else {
+                res.status(status.NOT_FOUND).send();
+            }
+        })
+        .catch(error => next(error));
+};
