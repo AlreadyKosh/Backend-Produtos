@@ -53,3 +53,57 @@ exports.SelectDetail = (req, res, next) => {
         })
         .catch(error => next(error));
 };
+
+exports.Update = (req, res, next) => {
+    const id = req.params.id;
+    const nome = req.body.nome;
+    const preco = req.body.preco;
+    const quantidade = req.body.quantidade;
+    const descricao = req.body.descricao;
+    const ativo = req.body.ativo;
+ 
+    Produtos.findByPk(id)
+        .then(produtos => {
+            if (produtos) {
+                produtos.update({
+                    nome: nome,
+                    preco: preco,
+                    quantidade: quantidade,
+                    descricao: descricao,
+                    ativo: ativo,
+                },
+                    {
+                        where: { id: id }
+                    })
+                    .then(() => {
+                        res.status(status.OK).send();
+                    })
+                    .catch(error => next(error));
+            } else {
+                res.status(status.NOT_FOUND).send();
+            }
+        })
+        .catch(error => next(error));
+};
+ 
+exports.Delete = (req, res, next) => {
+    const id = req.params.id;
+ 
+    Produtos.findByPk(id)
+        .then(produtos => {
+            if (produtos) {
+                produtos.destroy({
+                    where: { id: id }
+                })
+                    .then(() => {
+                        res.status(status.OK).send();
+                    })
+                    .catch(error => next(error));
+            }
+            else {
+                res.status(status.NOT_FOUND).send();
+            }
+        })
+        .catch(error => next(error));
+};
+
