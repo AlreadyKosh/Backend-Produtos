@@ -5,9 +5,9 @@ const router = express.Router();
  
 router.post('/categorias', categoriasController.Insert);
 router.get('/categorias', categoriasController.SelectAll);
-router.get('/categorias/:id_categorias', categoriasController.SelectDetail)
-router.put('/categorias/:id_categorias', categoriasController.Update);
-router.delete('/categorias/:id_categorias', categoriasController.Delete);
+router.get('/categorias/:id_categoria', categoriasController.SelectDetail)
+router.put('/categorias/:id_categoria', categoriasController.Update);
+router.delete('/categorias/:id_categoria', categoriasController.Delete);
 
 router.post('/produtos', produtosController.Insert);
 router.get('/produtos', produtosController.SelectAll);
